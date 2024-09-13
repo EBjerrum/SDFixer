@@ -48,7 +48,7 @@ class SDdata(QObject): #Inherit from QObject so that Signals can be emitted
     #TODO: maybe rather load into a dataframe??
     def loadSDfile(self, filename):
         self.filename = filename
-        self.SDMolSupplier = Chem.SDMolSupplier(filename)
+        self.SDMolSupplier = Chem.SDMolSupplier(filename, sanitize=False, strictParsing=False)
         self.length = len(self.SDMolSupplier)
         if self.selected == 0:
             self.selectedChanged.emit(self._selected)
