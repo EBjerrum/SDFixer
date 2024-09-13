@@ -22,6 +22,8 @@ from rdkit import Chem
 
 
 from sddata import SDdata
+from embedded_editor import EmbeddedEditor
+
 
 logger = logging.getLogger()
 
@@ -68,6 +70,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.myStatusBar.showMessage('Ready', 10000)
         self.define_actions()
         self.define_menus()
+
+
+        self.editor = EmbeddedEditor()
+        self.editor.saveAction.triggered.connect(self.getEditedMolecule)
 
         #Connect model signals to UI slots
         #Update central widget if the selected molecule changes
@@ -120,6 +126,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.mainToolBar.addSeparator()
         self.mainToolBar.addAction(self.prevAction)
         self.mainToolBar.addAction(self.nextAction)
+        self.mainToolBar.addSeparator()
+        self.mainToolBar.addAction(self.editAction)
         # self.mainToolBar.addSeparator()
         # self.mainToolBar.addAction(self.molblockAction)
 
@@ -147,12 +155,19 @@ class MainWindow(QtWidgets.QMainWindow):
                                    shortcut=QKeySequence.MoveToNextChar,
                                    statusTip="Next molecule",
                                    triggered=self.nextMol)
+        
+        self.editAction = QAction( #QIcon('Right.png'),
+                                  'Edit', self,
+                                   #shortcut=QKeySequence.MoveToNextChar,
+                                   statusTip="Edit current molecule",
+                                   triggered=self.editMol)
+        
         self.aboutAction = QAction( QIcon('Info.png'), 'A&;bout',
                                     self, statusTip="Displays info about SDbrowser",
                                    triggered=self.aboutHelp)
         self.aboutQtAction = QAction("About &Qt", self,
                                 statusTip="Qt library About box",
-                                triggered=qApp.aboutQt)
+                                triggered=qApp.aboutQt) #Why this work when qApp is not in scope?
         
 
     def exitFile(self):
@@ -162,6 +177,18 @@ class MainWindow(QtWidgets.QMainWindow):
             exit(0)
         else:
             self.editor.logger.debug("Abort closing")
+
+
+    def editMol(self):
+        mol = self.sddata.get_selected_mol()
+        i = self.sddata.selected
+        #Boot out the editor
+        #if changed
+        self.sddata.loc[i, "ROMol"] = mol
+
+
+    def getEditedMolecule(self):
+        pass
 
     def aboutHelp(self):
         QMessageBox.about(self, "A Basic SD browser",

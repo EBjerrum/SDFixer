@@ -30,7 +30,7 @@ class SDdata(QObject): #Inherit from QObject so that Signals can be emitted
     @selected.setter
     def selected(self, value):
         self.setSelected(value)
-    #this is more easy to use from with PyQt signals
+    #this is more easy to use from with PyQt signals #TODO, pyside6 don't need setters and getters but can work with properties directy
     def setSelected(self, selected):
         #Prevent setting a selected that doesn't exist
         if selected < 0: selected = 0
@@ -68,3 +68,7 @@ class SDdata(QObject): #Inherit from QObject so that Signals can be emitted
 
     def get_selected_mol(self):
         return self.sddata.ROMol.iloc[self._selected]
+    
+
+    def saveSDFile(self, filename):
+        PandasTools.WriteSDF(self.sddata, filename, molColName='ROMol', idName='ID', properties=list(self.sddata.columns), forceV3000=False)
