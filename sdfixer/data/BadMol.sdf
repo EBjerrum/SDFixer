@@ -1,0 +1,142 @@
+
+  Ketcher  9132411 02D 1   1.00000     0.00000     0
+
+  5  5  0  0  0  0  0  0  0  0999 V2000
+    7.3862   -1.9081    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.7922   -2.8219    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7869   -2.7180    0.0000 N   0  0  0  0  0  2  0  0  0  0  0  0
+    8.9955   -1.7400    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1297   -1.2394    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0     0  0
+  2  3  1  0     0  0
+  3  4  1  0     0  0
+  4  5  2  0     0  0
+  5  1  1  0     0  0
+M  END
+> <Name>
+  BadImidazole
+  
+> <ExpectedErrors>
+Can not Kekularize
+
+$$$$
+
+     RDKit          2D
+
+  0  0  0  0  0  0  0  0  0  0999 V3000
+M  V30 BEGIN CTAB
+M  V30 COUNTS 7 7 0 0 0
+M  V30 BEGIN ATOM
+M  V30 1 C -0.870200 -0.504400 0.000000 0
+M  V30 2 N -0.870200 0.502400 0.000000 0
+M  V30 3 C 0.001800 1.006000 0.000000 0
+M  V30 4 C 0.873600 0.502400 0.000000 0
+M  V30 5 C 0.873600 -0.504400 0.000000 0
+M  V30 6 C 0.001800 -1.007800 0.000000 0
+M  V30 7 O -1.742200 1.006000 0.000000 0
+M  V30 END ATOM
+M  V30 BEGIN BOND
+M  V30 1 2 1 2
+M  V30 2 1 2 3
+M  V30 3 2 3 4
+M  V30 4 1 4 5
+M  V30 5 2 5 6
+M  V30 6 1 6 1
+M  V30 7 2 2 7
+M  V30 END BOND
+M  V30 BEGIN COLLECTION
+M  V30 MDLV30/STEABS ATOMS=(0)
+M  V30 END COLLECTION
+M  V30 END CTAB
+M  END
+> <Name>
+Bad N-Oxide
+
+> <Expected Errors>
+Can not Kekularize
+Invalid valance on N
+
+$$$$
+
+     RDKit          2D
+
+  0  0  0  0  0  0  0  0  0  0999 V3000
+M  V30 BEGIN CTAB
+M  V30 COUNTS 8 8 0 0 0
+M  V30 BEGIN ATOM
+M  V30 1 C -0.915200 -0.325200 0.000000 0
+M  V30 2 C -0.788800 0.670000 0.000000 0
+M  V30 3 C 0.136200 1.058200 0.000000 0
+M  V30 4 C 0.935000 0.451200 0.000000 0
+M  V30 5 C 0.808600 -0.544000 0.000000 0
+M  V30 6 C -0.116600 -0.932200 0.000000 0
+M  V30 7 N -1.790800 0.621800 0.000000 0
+M  V30 8 N -1.010400 1.648400 0.000000 0
+M  V30 END ATOM
+M  V30 BEGIN BOND
+M  V30 1 2 1 2
+M  V30 2 1 2 3
+M  V30 3 2 3 4
+M  V30 4 1 4 5
+M  V30 5 2 5 6
+M  V30 6 1 6 1
+M  V30 7 1 2 7
+M  V30 8 1 2 8
+M  V30 END BOND
+M  V30 BEGIN COLLECTION
+M  V30 MDLV30/STEABS ATOMS=(0)
+M  V30 END COLLECTION
+M  V30 END CTAB
+M  END
+> <Name>
+Pentavalend aromatic
+
+> <ExpectedErrors>
+Can not Kekularize
+Invalid valance on C
+
+$$$$
+
+     RDKit          2D
+
+  6  5  0  0  0  0  0  0  0  0999 V2000
+    0.1656   -0.9680    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.8566   -0.2408    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0486    0.1916    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.9880    0.7538    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.8430   -0.0584    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.3348   -1.1224    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0
+  2  3  1  0
+  2  4  1  0
+  2  5  1  0
+  2  6  1  0
+M  END
+> <Name>
+Pentavalent C
+
+> <ExpectedErrors>
+Invalid Valence on C
+
+$$$$
+
+  Ketcher  9132410522D 1   1.00000     0.00000     0
+
+  5  4  0  0  1  0  0  0  0  0999 V2000
+    3.2170   -4.3000    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0830   -3.8000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.9490   -4.3000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.0668   -4.6159    0.0000 Br  0  0  0  0  0  0  0  0  0  0  0  0
+    4.0830   -2.8000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0     0  0
+  2  3  1  0     0  0
+  2  4  1  0     0  0
+  2  5  1  1     0  0
+M  END
+> <Name>
+Inconclusive Thetrahedral Stereo 1
+
+> <ExpectedErrors>
+Inconclusive Error on C
+
+$$$$
