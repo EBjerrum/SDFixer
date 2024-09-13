@@ -1,6 +1,6 @@
 
 #QtCore is the nonGUI stuff.
-
+import logging
 
 # Import required modules
 import sys, time, os
@@ -23,6 +23,7 @@ from rdkit import Chem
 
 from sddata import SDdata
 
+logger = logging.getLogger()
 
 
 #The Main browser windows
@@ -31,13 +32,13 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow,self).__init__()
         self.fileName = fileName
         self.filter = "SD files (*.sdf *.sd)"
-        self.model = SDdata()
+        self.sddata = SDdata()
         #Setup the user interface
         #self.initUI()
 
         #If we get a filename, load it into the model
         if self.fileName != None:
-            self.model.loadSDfile(fileName)
+            self.sddata.loadSDfile(fileName)
 
 
         #Set Window properties
@@ -49,7 +50,15 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.center.setFixedSize(350,350)
         self.molviewer = MolWidget()
         self.molviewer.setFixedSize(600, 600)
-        self.setCentralWidget(self.molviewer)
+
+        self.checkchemistry_message = QtWidgets.QTextEdit()
+        self.checkchemistry_message.setReadOnly(True)
+
+        self.central = QtWidgets.QWidget()
+        central_layout = QtWidgets.QVBoxLayout(self.central)
+        central_layout.addWidget(self.molviewer)
+        central_layout.addWidget(self.checkchemistry_message)
+        self.setCentralWidget(self.central)
         #Setup the statusbar
         self.myStatusBar = QStatusBar()
         #A permanent widget is right aligned
@@ -62,30 +71,34 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #Connect model signals to UI slots
         #Update central widget if the selected molecule changes
-        self.model.selectedChanged.connect(self.update_mol)
+        self.sddata.selectedChanged.connect(self.update_molviewer)
         #Update the permanent widget in the status bar, if status changes
-        self.model.statusChanged.connect(self.molcounter.setText)
+        self.sddata.statusChanged.connect(self.molcounter.setText)
         #Finally! Show the UI!
-        self.update_mol()
+        self.update_molviewer()
         self.show()
 
 
-    def update_mol(self):
-        self.molviewer.mol = self.model.get_selected_mol()
+    def update_molviewer(self):
+        mol = self.sddata.get_selected_mol()
+        problems = Chem.DetectChemistryProblems(mol)
+        errors = [f"{err.GetType()}:{err.Message()}" for err in problems]
+        self.checkchemistry_message.setText("\n".join(errors))
+        self.molviewer.mol = mol
 
 
     #Open a new file
     def openFile(self):
         self.fileName, self.filter = QFileDialog.getOpenFileName(self, filter=self.filter)
-        self.model.loadSDfile(str(self.fileName))
+        self.sddata.loadSDfile(str(self.fileName))
     #Increment the selected mol with 1
     def nextMol(self):
         #Increment the selected molecule in the model by 1
-        self.model.setSelected(self.model.selected + 1)
+        self.sddata.setSelected(self.sddata.selected + 1)
     #Decrement the selected mol with 1
     def prevMol(self):
         #Decrement the selected molecule in the model by 1
-        self.model.setSelected(self.model.selected - 1)
+        self.sddata.setSelected(self.sddata.selected - 1)
 
 
     # Menus
@@ -178,8 +191,8 @@ if __name__ == '__main__':
         sys.exit(0)
     #Basic Exception handling
     except NameError:
-        print("Name Error:", sys.exc_info()[1])
+        logger.error("Name Error:", sys.exc_info()[1])
     except SystemExit:
-        print("Closing")
+        logger.info("Closing")
     except Exception:
-        print(sys.exc_info()[1])
+        logger.error(sys.exc_info()[1])
