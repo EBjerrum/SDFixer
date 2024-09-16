@@ -7,15 +7,22 @@ The aim is to make a tool that can easily browse thorugh an SDfile for identifyi
 
 ## Roadmap
 Create a module and package with installer and cli command
+
+Possibility to use embedded rdEditor to fix errors manually.
+
 Make upstream changes to rdEditor:
 - Better support for embedded usage
 - Visualization and reporting of chemistry problems on the molecule
+
+
 Load/save of SMILES and SDFiles
+
 Buttons to skip to next problematic molecule (both with problems, and fully unsanitizable).
-functions with standard fixes,
+
+Functions with standard fixes:
 - charge on quarternary and uncharged nitrogen
 - explicit H on aromatic 5 membered rings containing nitrogen (But how to choose which one?)
-Possibility to use embedded rdEditor to fix errors manually.
+
 
 ## Install
 
